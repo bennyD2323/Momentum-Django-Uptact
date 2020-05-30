@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+<h1>{{ contact.name }}</h1>
+<h2>{{ contact.name }}</h2>
+<h3>{{contact.birthday}}</h3>
+
+<div class="flex">
+  <div class="pr2"><i class="icofont-location-pin"></i></div>
+  <div>
+    {{ contact.address_1 }}<br />
+    {% if contact.address_2 %}
+      {{ contact.address_2 }}<br />
+    {% endif %}
+    {{ contact.city }}, {{ contact.state }} {{ contact.zip_code }}
+  </div>
+</div>
+{% if contact.phone_number %}
+<div class="flex">
+  <div class="pr2"><i class="icofont-phone"></i></div>
+  <div>{{ contact.phone_number }}</div>
+</div>
+{% endif %}
+
+{% if contact.email %}
+<div class="flex">
+  <div class="pr2"><i class="icofont-ui-email"></i></div>
+  <div>{{ contact.email }}</div>
+</div>
+{% endif %}
+    
+<p>
+<a class ="db" href="{% url 'list_contacts' %}">Go back to all Contacts </a>
+<a class ="db" href="{% url 'edit_contact' pk=contact.pk %}">Edit Contact</a>    
+<a class="red" href="{% url 'delete_contact' pk=contact.pk %}">Delete Contact</a>
+<a class="db" href="{% url 'add_note' contact_pk=contact.pk %}">Add Note</a>
+</p>
+
+<div>
+  {% for note in contact.notes.all %}
+  <div class="pr2 flex">&#x1F4DD {{ note.text }} </div>
+  <div>{{ note.time_stamp }}</div>
+  {% endfor %}
+</div>
+
+{% endblock %}

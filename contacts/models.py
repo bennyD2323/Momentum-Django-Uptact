@@ -21,8 +21,10 @@ class Contact(models.Model):
     zip_code = USZipCodeField(null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
 
-class Notes(models.Model):
-    contact = models.ForeignKey(to:Contact, 
+class Note(models.Model):
+    contact = models.ForeignKey(to=Contact, 
                                 on_delete=models.CASCADE,
-                                related_name="note")
+                                related_name="notes")
+    text = models.CharField(max_length=1500, null=True, blank =True) 
+    
     notes = models.CharField(max_length=255)
